@@ -32,7 +32,20 @@ func main() {
 		klasemen.ShowKlasemen(Clubs)
 		main()
 	case "2":
-		input.InputMatch(Clubs)
+		fmt.Println("1. Single Input")
+		fmt.Println("2. Multiple Input")
+		fmt.Println("Pilih Menu [1/2]: ")
+		scanner.Scan()
+		matchInputType := scanner.Text()
+
+		switch matchInputType {
+		case "1":
+			input.InputMatch(Clubs)
+		case "2":
+			input.InputMultipleMatch(Clubs)
+		default:
+			fmt.Println("Pilihan tidak valid")
+		}
 		main()
 	case "3":
 		data, err := input.InputClub()

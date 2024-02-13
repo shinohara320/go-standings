@@ -113,3 +113,77 @@ func updateMatchResult(club *model.Club, golDicetak, golKebobolan int) {
 		club.Kalah++
 	}
 }
+
+func InputMultipleMatch(clubs []model.Club) []MatchResult {
+	var matchResults []MatchResult
+	scanner := bufio.NewScanner(os.Stdin)
+
+	for {
+		fmt.Println("Input Match:")
+		fmt.Print("Klub 1: ")
+		scanner.Scan()
+		club1Name := scanner.Text()
+
+		club1, err := findClubByName(club1Name, clubs)
+		if err != nil {
+			fmt.Println("Error:", err)
+			continue
+		}
+
+		fmt.Print("Gol Klub Home: ")
+		scanner.Scan()
+		gol1Str := scanner.Text()
+		gol1, err := strconv.Atoi(gol1Str)
+		if err != nil {
+			fmt.Println("Error:", err)
+			continue
+		}
+
+		fmt.Print("Klub 2: ")
+		scanner.Scan()
+		club2Name := scanner.Text()
+
+		club2, err := findClubByName(club2Name, clubs)
+		if err != nil {
+			fmt.Println("Error:", err)
+			continue
+		}
+
+		fmt.Print("Gol Klub Away: ")
+		scanner.Scan()
+		gol2Str := scanner.Text()
+		gol2, err := strconv.Atoi(gol2Str)
+		if err != nil {
+			fmt.Println("Error:", err)
+			continue
+		}
+
+		matchResult1 := MatchResult{
+			Club:         club1,
+			GolDicetak:   gol1,
+			GolKebobolan: gol2,
+		}
+		matchResult2 := MatchResult{
+			Club:         club2,
+			GolDicetak:   gol2,
+			GolKebobolan: gol1,
+		}
+
+		fmt.Printf("Hasil pertandingan: %s %d-%d %s\n", club1.Name, gol1, gol2, club2.Name)
+
+		// Append match results
+		matchResults = append(matchResults, matchResult1, matchResult2)
+
+		fmt.Print("Tambahkan pertandingan lagi? (y/n): ")
+		scanner.Scan()
+		response := scanner.Text()
+
+		if response != "y" && response != "Y" {
+			// Update club scores after all matches are inputted
+			updateClubScores(matchResults, clubs)
+			break
+		}
+	}
+
+	return matchResults
+}
