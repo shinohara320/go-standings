@@ -20,7 +20,7 @@ func InputMatch(clubs []model.Club) {
 		scanner := bufio.NewScanner(os.Stdin)
 
 		fmt.Println("Masukkan hasil pertandingan:")
-		fmt.Print("Klub 1: ")
+		fmt.Print("Klub Home: ")
 		scanner.Scan()
 		club1Name := scanner.Text()
 
@@ -39,7 +39,7 @@ func InputMatch(clubs []model.Club) {
 			continue
 		}
 
-		fmt.Print("Klub 2: ")
+		fmt.Print("Klub Away: ")
 		scanner.Scan()
 		club2Name := scanner.Text()
 
