@@ -53,7 +53,6 @@ func InputClub() ([]model.Club, error) {
 		if !clubExists(newClub) {
 			clubs = append(clubs, newClub)
 			existingClubs = append(existingClubs, newClub)
-			fmt.Printf("Klub %d: %s dari kota %s\n", i+1, newClub.Name, newClub.Kota)
 			i++
 		} else {
 			fmt.Printf("Klub %d: %s dari kota %s sudah ada\n", i+1, newClub.Name, newClub.Kota)
